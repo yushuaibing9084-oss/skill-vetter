@@ -1,0 +1,47 @@
+{
+  "name": "skill-vetter",
+  "version": "0.1.0",
+  "description": "AI Skill 评估工具 - 让每一次安装都有据可依",
+  "main": "src/index.js",
+  "bin": {
+    "skill-vetter": "./src/cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/",
+    "start": "node src/cli.js"
+  },
+  "keywords": [
+    "ai",
+    "skill",
+    "agent",
+    "assessment",
+    "security",
+    "evaluation",
+    "cli"
+  ],
+  "author": "Skill Vetter Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/skill-vetter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/skill-vetter/issues"
+  },
+  "homepage": "https://github.com/yourusername/skill-vetter#readme",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.54.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
