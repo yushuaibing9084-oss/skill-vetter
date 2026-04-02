@@ -1,15 +1,17 @@
 {
   "name": "skill-vetter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "AI Skill 评估工具 - 让每一次安装都有据可依",
   "main": "src/index.js",
   "bin": {
-    "skill-vetter": "./src/cli.js"
+    "skill-vetter": "./src/cli-interactive.js",
+    "sv": "./src/cli-interactive.js"
   },
   "scripts": {
     "test": "jest",
     "lint": "eslint src/",
-    "start": "node src/cli.js"
+    "start": "node src/cli-interactive.js",
+    "legacy": "node src/cli.js"
   },
   "keywords": [
     "ai",
@@ -35,7 +37,8 @@
     "cheerio": "^1.0.0-rc.12",
     "commander": "^11.1.0",
     "chalk": "^4.1.2",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "inquirer": "^8.2.6"
   },
   "devDependencies": {
     "jest": "^29.7.0",
