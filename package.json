@@ -4,8 +4,8 @@
   "description": "AI Skill 评估工具 - 让每一次安装都有据可依",
   "main": "src/index.js",
   "bin": {
-    "skill-vetter": "./src/cli-interactive.js",
-    "sv": "./src/cli-interactive.js"
+    "skill-vetter": "src/cli-interactive.js",
+    "sv": "src/cli-interactive.js"
   },
   "scripts": {
     "test": "jest",

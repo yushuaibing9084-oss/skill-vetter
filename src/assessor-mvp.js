@@ -33,6 +33,56 @@ const MOCK_DATABASE = {
     community_feedback: { score: 80, name: '社区反馈' },
     security_audit: { score: 90, name: '安全审计' },
     usage_metrics: { score: 85, name: '使用指标' }
+  },
+  // 新增案例 1: Anthropic 官方 Skill (大厂官方)
+  'anthropic/skills@webapp-testing': {
+    source_credibility: { score: 98, name: '来源可信度' },
+    transparency: { score: 95, name: '透明度' },
+    sustainability: { score: 95, name: '可持续性' },
+    technical_value: { score: 90, name: '技术价值' },
+    community_feedback: { score: 85, name: '社区反馈' },
+    security_audit: { score: 92, name: '安全审计' },
+    usage_metrics: { score: 88, name: '使用指标' }
+  },
+  // 新增案例 2: GitHub 官方 Skill (大厂官方)
+  'github/skills@git-commit': {
+    source_credibility: { score: 95, name: '来源可信度' },
+    transparency: { score: 90, name: '透明度' },
+    sustainability: { score: 95, name: '可持续性' },
+    technical_value: { score: 80, name: '技术价值' },
+    community_feedback: { score: 85, name: '社区反馈' },
+    security_audit: { score: 90, name: '安全审计' },
+    usage_metrics: { score: 92, name: '使用指标' }
+  },
+  // 新增案例 3: Prisma 官方 Skill (知名开源)
+  'prisma/skills@database-setup': {
+    source_credibility: { score: 90, name: '来源可信度' },
+    transparency: { score: 85, name: '透明度' },
+    sustainability: { score: 88, name: '可持续性' },
+    technical_value: { score: 88, name: '技术价值' },
+    community_feedback: { score: 82, name: '社区反馈' },
+    security_audit: { score: 85, name: '安全审计' },
+    usage_metrics: { score: 87, name: '使用指标' }
+  },
+  // 新增案例 4: 个人开发者 Skill (中等风险)
+  'developer-xyz/skills@image-resizer': {
+    source_credibility: { score: 55, name: '来源可信度' },
+    transparency: { score: 45, name: '透明度' },
+    sustainability: { score: 50, name: '可持续性' },
+    technical_value: { score: 70, name: '技术价值' },
+    community_feedback: { score: 60, name: '社区反馈' },
+    security_audit: { score: 65, name: '安全审计' },
+    usage_metrics: { score: 55, name: '使用指标' }
+  },
+  // 新增案例 5: 匿名/高风险 Skill (高风险)
+  'unknown-dev/skills@data-scraper': {
+    source_credibility: { score: 20, name: '来源可信度' },
+    transparency: { score: 15, name: '透明度' },
+    sustainability: { score: 30, name: '可持续性' },
+    technical_value: { score: 60, name: '技术价值' },
+    community_feedback: { score: 35, name: '社区反馈' },
+    security_audit: { score: 40, name: '安全审计' },
+    usage_metrics: { score: 45, name: '使用指标' }
   }
 };
 
@@ -55,7 +105,20 @@ const RED_FLAGS = {
     '官网无团队信息',
     '无融资披露'
   ],
-  'vercel-labs/agent-skills@vercel-react-best-practices': []
+  'vercel-labs/agent-skills@vercel-react-best-practices': [],
+  'anthropic/skills@webapp-testing': [],
+  'github/skills@git-commit': [],
+  'prisma/skills@database-setup': [],
+  'developer-xyz/skills@image-resizer': [
+    '开发者信息不完整',
+    '项目更新频率低'
+  ],
+  'unknown-dev/skills@data-scraper': [
+    '开发者身份不明',
+    '官网不存在或无法访问',
+    '代码未开源',
+    '要求过度权限（访问所有网站数据）'
+  ]
 };
 
 const ALTERNATIVES = {
@@ -68,7 +131,22 @@ const ALTERNATIVES = {
     'Pruna 官方 API',
     '本地部署 Wan 2.5'
   ],
-  'vercel-labs/agent-skills@vercel-react-best-practices': []
+  'vercel-labs/agent-skills@vercel-react-best-practices': [],
+  'anthropic/skills@webapp-testing': [],
+  'github/skills@git-commit': [],
+  'prisma/skills@database-setup': [
+    'Drizzle ORM',
+    'TypeORM'
+  ],
+  'developer-xyz/skills@image-resizer': [
+    'Sharp 官方库',
+    'ImageMagick'
+  ],
+  'unknown-dev/skills@data-scraper': [
+    'Puppeteer 官方',
+    'Playwright 官方',
+    'Scrapy'
+  ]
 };
 
 /**

@@ -74,6 +74,96 @@ class ExpectationManager {
         learning_curve: 'medium',
         setup_complexity: 'low',
         ongoing_maintenance: 'low'
+      },
+      'anthropic/skills@webapp-testing': {
+        works_well_for: [
+          '✅ Web 应用自动化测试',
+          '✅ UI 交互测试',
+          '✅ 端到端测试场景'
+        ],
+        limitations: [
+          '⚠️ 需要 Anthropic API 密钥',
+          '⚠️ 测试速度受 API 响应影响',
+          '⚠️ 复杂场景可能需要人工验证'
+        ],
+        hidden_costs: [
+          '💰 Anthropic API 调用费用',
+          '⏱️ 需要学习测试框架的使用'
+        ],
+        learning_curve: 'medium',
+        setup_complexity: 'medium',
+        ongoing_maintenance: 'low'
+      },
+      'github/skills@git-commit': {
+        works_well_for: [
+          '✅ 生成规范的 commit message',
+          '✅ 学习 Git 最佳实践',
+          '✅ 团队协作规范'
+        ],
+        limitations: [
+          '⚠️ 需要 GitHub 账号授权',
+          '⚠️ 对复杂变更的描述可能不够准确'
+        ],
+        hidden_costs: [
+          '⏱️ 需要审核生成的 message 是否准确'
+        ],
+        learning_curve: 'low',
+        setup_complexity: 'low',
+        ongoing_maintenance: 'low'
+      },
+      'prisma/skills@database-setup': {
+        works_well_for: [
+          '✅ 快速搭建数据库环境',
+          '✅ Prisma ORM 项目初始化',
+          '✅ 学习数据库最佳实践'
+        ],
+        limitations: [
+          '⚠️ 主要针对 Prisma 生态',
+          '⚠️ 复杂数据库架构需要手动调整'
+        ],
+        hidden_costs: [
+          '⏱️ 需要了解 Prisma 的基本概念'
+        ],
+        learning_curve: 'medium',
+        setup_complexity: 'low',
+        ongoing_maintenance: 'low'
+      },
+      'developer-xyz/skills@image-resizer': {
+        works_well_for: [
+          '✅ 简单的图片尺寸调整',
+          '✅ 批量图片处理'
+        ],
+        limitations: [
+          '⚠️ 功能相对简单，不支持高级编辑',
+          '⚠️ 处理大文件时可能较慢',
+          '⚠️ 开发者支持有限'
+        ],
+        hidden_costs: [
+          '⏱️ 遇到问题可能需要自行解决',
+          '⚠️ 长期维护不确定性'
+        ],
+        learning_curve: 'low',
+        setup_complexity: 'low',
+        ongoing_maintenance: 'medium'
+      },
+      'unknown-dev/skills@data-scraper': {
+        works_well_for: [
+          '🤷 功能描述模糊，难以确定'
+        ],
+        limitations: [
+          '❌ 开发者身份不明',
+          '❌ 代码未开源，无法审计',
+          '❌ 要求过度权限',
+          '❌ 可能收集用户数据'
+        ],
+        hidden_costs: [
+          '⚠️ 数据安全风险极高',
+          '⚠️ 可能违反网站服务条款',
+          '⚠️ 无技术支持'
+        ],
+        learning_curve: 'unknown',
+        setup_complexity: 'unknown',
+        ongoing_maintenance: 'unknown'
       }
     };
   }
