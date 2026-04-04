@@ -205,14 +205,14 @@ $ skill-vetter recommend
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/skill-vetter.git
+git clone https://github.com/yushuaibing9084-oss/skill-vetter.git
 cd skill-vetter
 
 # 安装依赖
 npm install
 
-# 运行测试
-npm test
+# 本地运行
+node src/cli-interactive.js check inference-sh/skills@ai-video-generation
 
 # 提交 PR
 ```
