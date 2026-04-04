@@ -46,36 +46,55 @@ node src/cli-interactive.js check inference-sh/skills@ai-video-generation \
 node src/cli-interactive.js recommend
 ```
 
-### 方式二：npx 运行（即将支持）
+### 方式二：npx 运行（推荐）
 
 ```bash
-npx skill-vetter check <skill-id>
+# 无需安装，直接运行
+npx skill-vetter check inference-sh/skills@ai-video-generation
+
+# 带需求评估
+npx skill-vetter check inference-sh/skills@ai-video-generation \
+  --intent "我想生成产品宣传视频"
+
+# 交互式推荐
+npx skill-vetter recommend
 ```
 
-> ⚠️ 目前需要先克隆仓库本地运行，npm 包发布中
+### 方式三：全局安装
+
+```bash
+npm install -g skill-vetter
+skill-vetter check <skill-id>
+```
 
 ---
 
 ## 📊 真实评估案例
 
-我们用 Skill Vetter 评估了真实的 Skill，以下是结果：
+我们用 Skill Vetter 评估了 7 个真实的 Skill，覆盖大厂官方、知名开源、个人开发者和匿名项目：
 
-### 案例 1: Vercel React Best Practices
-```
-综合评分: 90/100 | 风险等级: ✅ LOW
-来源: Vercel 官方 | 透明度: 高
-结论: 可以放心使用
+| Skill | 来源类型 | 综合评分 | 建议 |
+|-------|---------|---------|------|
+| Anthropic Webapp Testing | AI大厂官方 | 93/100 | ✅ 放心使用 |
+| GitHub Git Commit | 平台官方 | 90/100 | ✅ 放心使用 |
+| Vercel React Best Practices | 大厂官方 | 90/100 | ✅ 放心使用 |
+| Prisma Database Setup | 知名开源 | 87/100 | ✅ 放心使用 |
+| inference-sh AI Video | 初创/不明 | 46/100 | ⚠️ 谨慎使用 |
+| developer-xyz Image Resizer | 个人开发者 | 37/100 | ❌ 不建议 |
+| unknown-dev Data Scraper | 匿名开发者 | 0/100 | 🚫 强烈不建议 |
+
+### 快速体验
+
+```bash
+# 评估大厂官方 Skill（高分案例）
+npx skill-vetter check vercel-labs/agent-skills@vercel-react-best-practices
+
+# 评估高风险 Skill（红旗案例）
+npx skill-vetter check unknown-dev/skills@data-scraper
 ```
 
-### 案例 2: inference-sh AI Video Generation
-```
-综合评分: 46/100 | 风险等级: ❌ HIGH
-来源: 团队信息不明 | 透明度: 低
-红旗: 官网无团队信息、无融资披露
-结论: 谨慎使用，避免上传敏感数据
-```
-
-📄 [查看完整评估报告](./examples/REAL_EVALUATIONS.md)
+📄 [查看完整评估报告（7个案例）](./examples/REAL_EVALUATIONS.md)  
+📄 [了解评估方法论](./docs/METHODOLOGY.md)
 
 ---
 
