@@ -25,23 +25,61 @@ AI Skill 生态正在爆发，但质量参差不齐。下载量可以被操纵�
 ✅ 要看隐藏成本 —— 时间、金钱、学习曲线
 ```
 
-## 快速开始
+## 🚀 立即体验
+
+### 方式一：本地运行（推荐）
 
 ```bash
-# 安装
-npm install -g skill-vetter
+# 克隆仓库
+git clone https://github.com/yushuaibing9084-oss/skill-vetter.git
+cd skill-vetter
+npm install
 
-# 方式1: 直接评估一个 Skill
-skill-vetter check inference-sh/skills@ai-video-generation
+# 评估任意 Skill
+node src/cli-interactive.js check inference-sh/skills@ai-video-generation
 
-# 方式2: 带着你的需求评估（推荐）
-skill-vetter check inference-sh/skills@ai-video-generation \
+# 或带需求评估
+node src/cli-interactive.js check inference-sh/skills@ai-video-generation \
   --intent "我想生成产品宣传视频，要求高清质量"
 
-# 方式3: 让工具帮你推荐（最智能）
-skill-vetter recommend
-# 然后回答几个问题，获得个性化推荐
+# 或启动交互式推荐
+node src/cli-interactive.js recommend
 ```
+
+### 方式二：npx 运行（即将支持）
+
+```bash
+npx skill-vetter check <skill-id>
+```
+
+> ⚠️ 目前需要先克隆仓库本地运行，npm 包发布中
+
+---
+
+## 📊 真实评估案例
+
+我们用 Skill Vetter 评估了真实的 Skill，以下是结果：
+
+### 案例 1: Vercel React Best Practices
+```
+综合评分: 90/100 | 风险等级: ✅ LOW
+来源: Vercel 官方 | 透明度: 高
+结论: 可以放心使用
+```
+
+### 案例 2: inference-sh AI Video Generation
+```
+综合评分: 46/100 | 风险等级: ❌ HIGH
+来源: 团队信息不明 | 透明度: 低
+红旗: 官网无团队信息、无融资披露
+结论: 谨慎使用，避免上传敏感数据
+```
+
+📄 [查看完整评估报告](./examples/REAL_EVALUATIONS.md)
+
+---
+
+## 三种使用模式
 
 ## 三种使用模式
 
