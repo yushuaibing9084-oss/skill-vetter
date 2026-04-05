@@ -25,8 +25,26 @@ program
   .command('check <skill-id>')
   .description('评估指定 Skill')
   .option('-i, --intent <intent>', '你的使用意图，例如："想把会议录音转成文字"')
+  .option('--no-interactive', '禁用交互式询问')
   .action(async (skillId, options) => {
     const spinner = ora(`正在评估 ${skillId}...`).start();
+
+    // 方案 B: 如果没有 intent 且允许交互，主动询问
+    if (!options.intent && options.interactive !== false) {
+      spinner.stop();
+      const { userIntent } = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'userIntent',
+          message: '💡 描述你的使用场景（直接回车跳过）：',
+          default: ''
+        }
+      ]);
+      if (userIntent.trim()) {
+        options.intent = userIntent.trim();
+      }
+      spinner.start(`正在评估 ${skillId}...`);
+    }
     
     try {
       const result = await assessSkill(skillId);
@@ -42,6 +60,11 @@ program
 
         const expectationReport = await expectationManager.generateExpectationReport(skillId, options.intent);
         printExpectationReport(expectationReport);
+      } else {
+        // 方案 A: 提示用户使用 --intent
+        console.log('\n' + chalk.cyan('💡 提示'));
+        console.log(chalk.gray('   使用 --intent "你的需求" 获取个性化匹配分析'));
+        console.log(chalk.gray('   例如: skill-vetter check ' + skillId + ' --intent "我想..."'));
       }
 
       // 输出使用前必知
@@ -50,7 +73,7 @@ program
 
       const checklist = await expectationManager.generatePreFlightChecklist(skillId);
       printChecklist(checklist);
-      
+
       console.log('\n' + chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'));
       
       // 退出码

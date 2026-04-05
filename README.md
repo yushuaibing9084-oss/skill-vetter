@@ -49,16 +49,18 @@ node src/cli-interactive.js recommend
 ### 方式二：npx 运行（推荐）
 
 ```bash
-# 无需安装，直接运行
+# 基础评估（客观维度）
 npx skill-vetter check inference-sh/skills@ai-video-generation
 
-# 带需求评估
+# ⭐ 推荐：带需求评估（客观+主观维度，个性化匹配分析）
 npx skill-vetter check inference-sh/skills@ai-video-generation \
   --intent "我想生成产品宣传视频"
 
 # 交互式推荐
 npx skill-vetter recommend
 ```
+
+> 💡 **强烈建议**: 使用 `--intent "你的需求"` 获取个性化匹配分析，避免"功能符合但场景不匹配"的坑！
 
 ### 方式三：全局安装
 
