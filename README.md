@@ -12,7 +12,7 @@ AI Skill 生态正在爆发，但质量参差不齐。下载量可以被操纵�
 
 ## 核心洞察
 
-我们朋友的反馈揭示了 Skill 选择的本质问题：
+用户反馈揭示了 Skill 选择的本质问题：
 
 ```
 ❌ 不要只看客观评分 —— 适合别人的不一定适合你
@@ -76,8 +76,10 @@ skill-vetter check <skill-id>
 | Skill | 来源类型 | 综合评分 | 建议 |
 |-------|---------|---------|------|
 | Anthropic Webapp Testing | AI大厂官方 | 93/100 | ✅ 放心使用 |
+| kepano Obsidian Skills | 开源/官方成员 | 92/100 | ✅ 放心使用 |
 | GitHub Git Commit | 平台官方 | 90/100 | ✅ 放心使用 |
 | Vercel React Best Practices | 大厂官方 | 90/100 | ✅ 放心使用 |
+| Lark/Feishu CLI | 大厂官方 | 85/100 | ✅ 放心使用 |
 | Prisma Database Setup | 知名开源 | 87/100 | ✅ 放心使用 |
 | inference-sh AI Video | 初创/不明 | 46/100 | ⚠️ 谨慎使用 |
 | developer-xyz Image Resizer | 个人开发者 | 37/100 | ❌ 不建议 |
