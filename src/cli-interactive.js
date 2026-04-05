@@ -34,21 +34,21 @@ program
       
       // 输出基础报告
       printBasicReport(result);
-      
+
       // 如果有意图，输出预期匹配分析
       if (options.intent) {
         console.log('\n' + chalk.bold('🎯 预期匹配分析'));
         console.log(chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'));
-        
-        const expectationReport = expectationManager.generateExpectationReport(skillId, options.intent);
+
+        const expectationReport = await expectationManager.generateExpectationReport(skillId, options.intent);
         printExpectationReport(expectationReport);
       }
-      
+
       // 输出使用前必知
       console.log('\n' + chalk.bold('📋 使用前必知'));
       console.log(chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'));
-      
-      const checklist = expectationManager.generatePreFlightChecklist(skillId);
+
+      const checklist = await expectationManager.generatePreFlightChecklist(skillId);
       printChecklist(checklist);
       
       console.log('\n' + chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'));

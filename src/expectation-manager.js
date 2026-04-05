@@ -3,9 +3,13 @@
  * 管理用户对 Skill 的预期，避免"踩坑"
  */
 
+const SkillParser = require('./skill-parser');
+
 class ExpectationManager {
   constructor() {
     this.expectationDatabase = this.loadExpectations();
+    this.skillParser = new SkillParser();
+    this.parsedCache = new Map(); // 缓存解析结果
   }
 
   /**
@@ -170,9 +174,49 @@ class ExpectationManager {
 
   /**
    * 获取 Skill 的预期管理信息
+   * 优先从硬编码数据库获取，如果没有则自动解析 SKILL.md
    */
-  getExpectations(skillId) {
-    return this.expectationDatabase[skillId] || this.generateDefaultExpectations();
+  async getExpectations(skillId) {
+    // 1. 优先从硬编码数据库获取（保留已有数据）
+    if (this.expectationDatabase[skillId]) {
+      return this.expectationDatabase[skillId];
+    }
+
+    // 2. 检查缓存
+    if (this.parsedCache.has(skillId)) {
+      return this.parsedCache.get(skillId);
+    }
+
+    // 3. 自动从 GitHub 解析 SKILL.md
+    const parsed = await this.parseSkillFromGitHub(skillId);
+    this.parsedCache.set(skillId, parsed);
+    return parsed;
+  }
+
+  /**
+   * 从 GitHub 解析 Skill 信息
+   */
+  async parseSkillFromGitHub(skillId) {
+    try {
+      // 解析 skillId: owner/repo@skill-name
+      const match = skillId.match(/^([^/]+)\/([^@]+)@(.+)$/);
+      if (!match) {
+        return this.generateDefaultExpectations();
+      }
+
+      const [, owner, repo, skillName] = match;
+      const parsed = await this.skillParser.parseFromGitHub(owner, repo, skillName);
+      
+      // 如果解析结果为空，返回默认值
+      if (!parsed.works_well_for.length && !parsed.limitations.length) {
+        return this.generateDefaultExpectations();
+      }
+
+      return parsed;
+    } catch (error) {
+      console.error(`解析 Skill 失败: ${error.message}`);
+      return this.generateDefaultExpectations();
+    }
   }
 
   /**
@@ -201,15 +245,15 @@ class ExpectationManager {
    * 生成预期匹配报告
    * 对比用户预期 vs 实际能力
    */
-  generateExpectationReport(skillId, userIntent) {
-    const expectations = this.getExpectations(skillId);
-    
+  async generateExpectationReport(skillId, userIntent) {
+    const expectations = await this.getExpectations(skillId);
+
     // 解析用户意图
     const parsedIntent = this.parseUserIntent(userIntent);
-    
+
     // 匹配分析
     const matchAnalysis = this.analyzeIntentMatch(parsedIntent, expectations);
-    
+
     return {
       skill_id: skillId,
       user_intent: parsedIntent,
@@ -354,25 +398,41 @@ class ExpectationManager {
   /**
    * 生成"使用前必知"清单
    */
-  generatePreFlightChecklist(skillId) {
-    const expectations = this.getExpectations(skillId);
-    
+  async generatePreFlightChecklist(skillId) {
+    const expectations = await this.getExpectations(skillId);
+
+    const items = [
+      {
+        category: '它能做什么',
+        items: expectations.works_well_for.length > 0
+          ? expectations.works_well_for
+          : ['✅ 请参考官方文档了解具体功能']
+      },
+      {
+        category: '它不能做什么',
+        items: expectations.limitations.length > 0
+          ? expectations.limitations
+          : ['⚠️ 未找到详细限制说明，建议仔细阅读文档']
+      },
+      {
+        category: '隐藏成本',
+        items: expectations.hidden_costs.length > 0
+          ? expectations.hidden_costs
+          : ['⏱️ 建议先了解 setup 和配置要求']
+      }
+    ];
+
+    // 如果数据来自自动解析，添加来源说明
+    if (expectations.source) {
+      items.push({
+        category: '数据来源',
+        items: [`ℹ️ 自动从 ${expectations.source} 解析`]
+      });
+    }
+
     return {
       title: '📋 使用前必知',
-      items: [
-        {
-          category: '它能做什么',
-          items: expectations.works_well_for
-        },
-        {
-          category: '它不能做什么',
-          items: expectations.limitations
-        },
-        {
-          category: '隐藏成本',
-          items: expectations.hidden_costs
-        }
-      ],
+      items,
       checklist: [
         '□ 我已经阅读了官方文档',
         '□ 我了解该 skill 的能力边界',
