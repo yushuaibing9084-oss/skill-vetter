@@ -198,13 +198,23 @@ class ExpectationManager {
    */
   async parseSkillFromGitHub(skillId) {
     try {
-      // 解析 skillId: owner/repo@skill-name
-      const match = skillId.match(/^([^/]+)\/([^@]+)@(.+)$/);
-      if (!match) {
+      // 解析 skillId: owner/repo 或 owner/repo@skill-name
+      let owner, repo, skillName;
+      const atMatch = skillId.match(/^([^/]+)\/([^@]+)@(.+)$/);
+      const simpleMatch = skillId.match(/^([^/]+)\/([^/]+)$/);
+      
+      if (atMatch) {
+        owner = atMatch[1];
+        repo = atMatch[2];
+        skillName = atMatch[3];
+      } else if (simpleMatch) {
+        owner = simpleMatch[1];
+        repo = simpleMatch[2];
+        skillName = repo; // 如果没有 @skill-name，使用 repo 名
+      } else {
         return this.generateDefaultExpectations();
       }
-
-      const [, owner, repo, skillName] = match;
+      
       const parsed = await this.skillParser.parseFromGitHub(owner, repo, skillName);
       
       // 如果解析结果为空，返回默认值
